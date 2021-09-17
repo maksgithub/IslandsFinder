@@ -16,8 +16,7 @@ namespace ConsoleApp1
                 {
                     if (matrix[i, j] != 2)
                     {
-                        uint s = 0;
-                        Dfs(matrix, i, j, ref s);
+                        var s = Dfs(matrix, i, j);
                         res = Math.Max(s, res);
                     }
                 }
@@ -26,8 +25,9 @@ namespace ConsoleApp1
             return res;
         }
 
-        private void Dfs(int[,] matrix, int x, int y, ref uint size)
+        private uint Dfs(int[,] matrix, int x, int y)
         {
+            uint res = 0;
             matrix[x, y] = 2;
             for (int i = 0; i < _x.Length; i++)
             {
@@ -36,10 +36,12 @@ namespace ConsoleApp1
 
                 if (matrix[newX, newY] == 1)
                 {
-                    size += 1;
-                    Dfs(matrix, newX, newY, ref size);
+                    res += 1;
+                    res += Dfs(matrix, newX, newY);
                 }
             }
+
+            return res;
         }
     }
 }
